@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import "react-native-gesture-handler";
 import { useEffect } from "react";
+import "react-native-gesture-handler";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { useAppFonts } from "@/lib/fonts";
@@ -23,7 +23,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider>
-      <Stack initialRouteName="onboarding" screenOptions={{ headerShown: false }}>
+      <Stack initialRouteName="(drawer)" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="onboarding" />
         <Stack.Screen name="(drawer)" />
         <Stack.Screen name="showcase" />

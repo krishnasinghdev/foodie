@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "recurly",
-    "slug": "recurly",
+    "name": "foodie",
+    "slug": "foodie",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "recurly",
+    "scheme": "foodie",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"

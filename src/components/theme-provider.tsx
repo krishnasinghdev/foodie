@@ -25,6 +25,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
  * Android AppearanceModule on some RN versions. The system scheme is read via
  * RN's `useColorScheme()` and fed into the observable for "auto" mode.
  */
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const systemScheme = useColorScheme();
   const [preference, setPreference] = useState<ThemePreference>("auto");

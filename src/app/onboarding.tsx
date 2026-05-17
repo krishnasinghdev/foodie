@@ -10,7 +10,7 @@ export default function OnboardingScreen() {
       <View className="flex-1 justify-between px-container-margin py-xl">
         <View className="gap-md pt-xl">
           <ThemedText variant="display-lg" tone="primary">
-            Recurly Eats
+            foodie Eats
           </ThemedText>
           <ThemedText variant="body-lg" tone="on-surface-variant">
             Fresh meals, quick checkout, and live order tracking in one demo food ordering app.
