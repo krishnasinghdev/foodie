@@ -33,6 +33,27 @@ export default function ProfileScreen() {
             Open Logout
           </Link>
         </View>
+        <View className="gap-sm">
+          <Link href="/cart" className="rounded-full bg-primary px-lg py-md text-center">
+            <ThemedText variant="label-md" tone="on-primary" align="center">
+              Open Cart
+            </ThemedText>
+          </Link>
+          <Link href="/search" className="text-primary underline">
+            <ThemedText variant="label-md" tone="primary">
+              Go to Search tab
+            </ThemedText>
+          </Link>
+          <Link href="/my-orders" className="text-primary underline">
+            <ThemedText>Open My Orders drawer screen</ThemedText>
+          </Link>
+          <Link href="/showcase" className="text-primary underline">
+            <ThemedText>Open Showcase screen</ThemedText>
+          </Link>
+          <Link href="/onboarding" className="text-primary underline">
+            <ThemedText>Open Onboarding screen</ThemedText>
+          </Link>
+        </View>
       </ScrollView>
     </Screen>
   );
