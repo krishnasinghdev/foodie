@@ -20,7 +20,6 @@ export default function DrawerLayout() {
       }}
     >
       <Drawer.Screen name="(tabs)" options={{ title: "Foddie", headerShown: false }} />
-      <Drawer.Screen name="my-orders" options={{ title: "My Orders" }} />
       <Drawer.Screen name="settings" options={{ title: "Settings" }} />
       <Drawer.Screen name="help" options={{ title: "Help" }} />
       <Drawer.Screen name="logout" options={{ title: "Logout" }} />

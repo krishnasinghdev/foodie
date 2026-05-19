@@ -17,7 +17,7 @@ const ICONS: Record<string, TabIconName> = {
 };
 
 /** Route names that float out of the main pill as their own circular bubble. */
-const FLOATING: ReadonlySet<string> = new Set(["search"]);
+const FLOATING: ReadonlySet<string> = new Set(["profile"]);
 
 export function GlassTabBar({ state, descriptors, navigation, insets }: BottomTabBarProps) {
   const isDark = useIsDark();
@@ -106,7 +106,7 @@ export function GlassTabBar({ state, descriptors, navigation, insets }: BottomTa
         {/* Floating circle(s) */}
         {floatingRoutes.map((route) => {
           const isFocused = state.routes[state.index]?.key === route.key;
-          const icon = ICONS[route.name] ?? "search";
+          const icon = ICONS[route.name] ?? "profile";
           return (
             <GlassWrap
               key={route.key}

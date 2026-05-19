@@ -15,10 +15,7 @@ export function ThemeToggle({ className }: { className?: string }) {
 
   return (
     <View
-      className={cn(
-        "bg-surface-container-high rounded-full flex-row items-center p-1",
-        className,
-      )}
+      className={cn("bg-surface-container-high rounded-full flex-row items-center p-1", className)}
     >
       {OPTIONS.map((opt) => {
         const active = preference === opt.value;
@@ -26,10 +23,7 @@ export function ThemeToggle({ className }: { className?: string }) {
           <Pressable
             key={opt.value}
             onPress={() => setPreference(opt.value)}
-            className={cn(
-              "rounded-full px-md py-xs active:opacity-80",
-              active && "bg-primary",
-            )}
+            className={cn("rounded-full px-md py-xs active:opacity-80", active && "bg-primary")}
           >
             <ThemedText
               variant="label-md"

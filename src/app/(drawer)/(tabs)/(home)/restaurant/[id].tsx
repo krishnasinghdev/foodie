@@ -1,8 +1,9 @@
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { Pressable, ScrollView, View } from "react-native";
 
 import { Screen } from "@/components/ui/screen";
 import { ThemedText } from "@/components/ui/themed-text";
+import { useCart } from "@/lib/cart-context";
 import { cn } from "@/lib/cn";
 import { restaurants } from "@/lib/data";
 import { Image } from "expo-image";
@@ -10,6 +11,7 @@ import { Image } from "expo-image";
 export default function RestaurantDetailScreen() {
   const { id } = useLocalSearchParams<{ id?: string }>();
   const restaurant = restaurants.find((r) => r.id === id);
+  const { items, add, increment, decrement, totalQuantity, totalPrice } = useCart();
 
   if (!restaurant) {
     return (
@@ -26,7 +28,7 @@ export default function RestaurantDetailScreen() {
   return (
     <Screen edges={["left", "right"]}>
       <View className="flex-1">
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="pb-32">
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="pb-48">
           <View className="relative">
             <Image
               source={{ uri: restaurant.image }}
@@ -79,66 +81,129 @@ export default function RestaurantDetailScreen() {
 
             {/* Menu List */}
             <View className="gap-md">
-              {restaurant.menu.map((item) => (
-                <Pressable
-                  key={item.id}
-                  className="overflow-hidden rounded-2xl bg-surface-container active:opacity-90"
-                >
-                  <View className="flex-row items-center">
-                    {/* Food Image */}
-                    <Image
-                      source={{ uri: item.image }}
-                      style={{
-                        width: 120,
-                        height: 160,
-                        borderRadius: 10,
-                        margin: 4,
-                      }}
-                      contentFit="cover"
-                    />
+              {restaurant.menu.map((item) => {
+                const cartItem = items.find((c) => c.id === item.id);
+                return (
+                  <Pressable
+                    key={item.id}
+                    className="overflow-hidden rounded-2xl bg-surface-container active:opacity-90"
+                  >
+                    <View className="flex-row items-center">
+                      {/* Food Image */}
+                      <Image
+                        source={{ uri: item.image }}
+                        style={{
+                          width: 120,
+                          height: 160,
+                          borderRadius: 10,
+                          margin: 4,
+                        }}
+                        contentFit="cover"
+                      />
 
-                    {/* Content */}
-                    <View className="flex-1 justify-between p-sm">
-                      <View className="gap-xs">
-                        <View className="flex-row items-center gap-xs">
-                          <View
-                            className={cn(
-                              "h-3 w-3 rounded-full",
-                              item.isVeg ? "bg-green-500" : "bg-red-500",
-                            )}
-                          />
+                      {/* Content */}
+                      <View className="flex-1 justify-between p-sm">
+                        <View className="gap-xs">
+                          <View className="flex-row items-center gap-xs">
+                            <View
+                              className={cn(
+                                "h-3 w-3 rounded-full",
+                                item.isVeg ? "bg-green-500" : "bg-red-500",
+                              )}
+                            />
 
-                          <ThemedText variant="headline-md" tone="primary">
-                            {item.title}
+                            <ThemedText variant="headline-md" tone="primary">
+                              {item.title}
+                            </ThemedText>
+                          </View>
+
+                          <ThemedText variant="body-md" tone="on-surface-variant" numberOfLines={2}>
+                            {item.description}
+                          </ThemedText>
+
+                          <ThemedText variant="label-sm" tone="secondary">
+                            {item.serving}
                           </ThemedText>
                         </View>
 
-                        <ThemedText variant="body-md" tone="on-surface-variant" numberOfLines={2}>
-                          {item.description}
-                        </ThemedText>
+                        {/* Footer */}
+                        <View className="flex-row items-center justify-between pt-sm">
+                          <ThemedText variant="headline-lg">₹{item.price}</ThemedText>
 
-                        <ThemedText variant="label-sm" tone="secondary">
-                          {item.serving}
-                        </ThemedText>
-                      </View>
-
-                      {/* Footer */}
-                      <View className="flex-row items-center justify-between pt-sm">
-                        <ThemedText variant="headline-lg">₹{item.price}</ThemedText>
-
-                        <Pressable className="rounded-full bg-primary px-3 py-1">
-                          <ThemedText variant="label-md" tone="on-primary">
-                            Add +
-                          </ThemedText>
-                        </Pressable>
+                          {cartItem ? (
+                            <View className="flex-row items-center gap-sm rounded-full bg-primary px-2 py-1">
+                              <Pressable
+                                onPress={() => decrement(item.id)}
+                                className="h-7 w-7 items-center justify-center rounded-full active:opacity-70"
+                                hitSlop={8}
+                              >
+                                <ThemedText variant="label-md" tone="on-primary">
+                                  −
+                                </ThemedText>
+                              </Pressable>
+                              <ThemedText variant="label-md" tone="on-primary">
+                                {cartItem.quantity}
+                              </ThemedText>
+                              <Pressable
+                                onPress={() => increment(item.id)}
+                                className="h-7 w-7 items-center justify-center rounded-full active:opacity-70"
+                                hitSlop={8}
+                              >
+                                <ThemedText variant="label-md" tone="on-primary">
+                                  +
+                                </ThemedText>
+                              </Pressable>
+                            </View>
+                          ) : (
+                            <Pressable
+                              onPress={() =>
+                                add({
+                                  id: item.id,
+                                  title: item.title,
+                                  price: item.price,
+                                  image: item.image,
+                                  isVeg: item.isVeg,
+                                  restaurantId: restaurant.id,
+                                  restaurantName: restaurant.name,
+                                })
+                              }
+                              className="rounded-full bg-primary px-3 py-1 active:opacity-80"
+                            >
+                              <ThemedText variant="label-md" tone="on-primary">
+                                Add +
+                              </ThemedText>
+                            </Pressable>
+                          )}
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </Pressable>
-              ))}
+                  </Pressable>
+                );
+              })}
             </View>
           </View>
         </ScrollView>
+
+        {totalQuantity > 0 && (
+          <View pointerEvents="box-none" className="absolute bottom-28 left-0 right-0 items-center">
+            <Link href="/orders" asChild>
+              <Pressable className="flex-row items-center gap-sm rounded-full bg-primary py-2 pl-2 pr-4 shadow-lg active:opacity-90">
+                <View className="h-7 min-w-7 items-center justify-center rounded-full bg-on-primary/15 px-2">
+                  <ThemedText variant="label-sm" tone="on-primary">
+                    {totalQuantity}
+                  </ThemedText>
+                </View>
+                <ThemedText variant="label-sm" tone="on-primary">
+                  View Cart
+                </ThemedText>
+                <View className="h-3 w-px bg-on-primary/30" />
+                <ThemedText variant="label-sm" tone="on-primary">
+                  ₹{totalPrice}
+                </ThemedText>
+              </Pressable>
+            </Link>
+          </View>
+        )}
       </View>
     </Screen>
   );
