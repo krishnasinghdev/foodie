@@ -17,7 +17,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.krishnasinghdev.foodie"
     },
     "web": {
       "output": "static",
@@ -35,11 +36,19 @@
           }
         }
       ],
-      "expo-status-bar"
+      "expo-status-bar",
+      "expo-font",
+      "expo-image"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "7d11e706-9b6d-4ea2-86c8-9a0b40955876"
+      }
     }
   }
 }
