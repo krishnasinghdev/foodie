@@ -10,19 +10,18 @@
   "editor.formatOnType": true,
   "editor.formatOnSaveMode": "file",
   "files.associations": {
-    "*.css": "tailwindcss",
+    "*.css": "tailwindcss"
   },
-  "tailwindCSS.classAttributes": [
-    "class",
-    "className",
-    "headerClassName"
-  ],
+  "tailwindCSS.classAttributes": ["class", "className", "headerClassName"],
   "files.exclude": {
     "**/*.expo": true,
     "**/*.git": true,
-    "**/*node_modules": true,
+    "**/*node_modules": true
   },
   "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescript]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
   }
 }

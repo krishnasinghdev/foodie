@@ -1,3 +1,6 @@
+npx expo install --check
+npx -y expo-doctor
+
 Auth Flow
 ├── Login
 └── Signup (optional)
